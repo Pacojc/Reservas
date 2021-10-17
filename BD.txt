@@ -1,0 +1,9 @@
+create table reservations( 
+idResource INT UNSIGNED, 
+idUser INT UNSIGNED, 
+idTimeSlots int unsigned, 
+date datetime, 
+remarks varchar(5000),
+FOREIGN KEY(idResource)REFERENCES resources(id), 
+FOREIGN KEY(idUser)REFERENCES users(id), 
+FOREIGN KEY(idTimeSlots)REFERENCES timeslots(id))
