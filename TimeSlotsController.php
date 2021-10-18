@@ -1,7 +1,6 @@
 <?php
-
-include ("view.php");
-include ("Models/TimeSlots.php");
+include_once ("view.php");
+include_once ("Models/TimeSlots.php");
 //include ("models/security.php");
 
 class TimeSlotsController

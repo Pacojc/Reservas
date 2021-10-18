@@ -1,7 +1,7 @@
 <?php
 
-include ("view.php");
-include ("Models/Resources.php");
+include_once ("view.php");
+include_once ("Models/Resources.php");
 //include ("models/security.php");
 
 class ResourcesController
@@ -15,6 +15,7 @@ class ResourcesController
         $data['list'] = Resources::resourceslist();
         View::show("ResourcesList", $data);
     }
+
     private $view, $Resources;
 
     /**

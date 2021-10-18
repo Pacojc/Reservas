@@ -1,5 +1,7 @@
 <?php
-echo "<table border ='1'>"; //Mostrar Peliculas
+/*
+
+echo "<table border ='1'>"; 
 echo"<tr><th>day of week</th><th>startTime</th><th>endTime</th></tr>";
 while ($fila = $result->fetch_object()) {
     echo "<tr>";
@@ -13,3 +15,15 @@ while ($fila = $result->fetch_object()) {
 echo "</table>";
 
 echo "<a href ='insertar.php'>añadir TimeSlots</a>";
+ */
+
+
+
+$resources = $data["list"];
+   print_r($resources);
+   echo "<br><br>";
+
+   foreach ($resources as $resource) {
+       echo $resource['name'];
+       echo "<br>";
+   }

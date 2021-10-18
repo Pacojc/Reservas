@@ -34,9 +34,9 @@ class Resources
 
             // Mostramos mensaje con el resultado de la operación
             if ($result->affected_rows == 0) {
-                echo "error no fue eliminado";
+                echo "error no fue eliminado"; //retocar esto es una vista this->view->show("resources/errorDelete");
             } else {
-                echo "eliminado con éxito";
+                echo "eliminado con éxito";  //retocar esto es una vista this->view->show("resources/deleteOk");
             }
             
 
