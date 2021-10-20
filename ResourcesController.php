@@ -8,25 +8,66 @@ class ResourcesController
 {
 
 
-    public function index(){
-        View::show("Index");
-    }
-    public function list(){
-        $data['list'] = Resources::resourceslist();
-        View::show("ResourcesList", $data);
-    }
+    private $resources,$view;
 
-    private $view, $Resources;
-
-    /**
-     * Constructor. Crea el objeto vista y los modelos
-     */
     public function __construct()
     {
         //session_start(); // Si no se ha hecho en el index, claro
         $this->view = new View(); // Vistas
-        $this->Resources = new Resources(); // Modelo de usuarios
+        $this->resources = new Resources(); // Modelo de usuarios
     }
+
+    public function index(){
+        View::show("Index");
+    }
+    public function list(){
+        $data['list'] = $this->resources->resourceslist();
+        $this->view->show("ResourcesList", $data);
+    }
+
+    public function mostrarFormulario(){
+        $this->view->show("createResources");
+    }
+
+    public function insertarRecurso(){
+        if(isset($_REQUEST["name"]) && isset($_REQUEST["description"]) && isset($_REQUEST["location"]) && isset($_REQUEST["reservations"])){
+            $name = $_REQUEST["name"];
+            $description = $_REQUEST["description"];
+            $location = $_REQUEST["location"];
+            $reservations = $_REQUEST["reservations"];
+
+            $this->resources->insertarRecurso($name,$description,$location,$reservations);
+            
+    }
+}
+
+    public function editarRecurso($id){
+            $data['resource'] = $this->resources->encontrar($id);
+            $this->view->show("updateResources", $data);
+            
+    }
+
+
+    public function editar($id){
+
+
+        
+
+if( isset($_REQUEST["id"]) && isset($_REQUEST["name"]) && isset($_REQUEST["description"]) && isset($_REQUEST["location"]) && isset($_REQUEST["reservations"])){
+            $id = $_REQUEST["id"];
+            $name = $_REQUEST["name"];
+            $description = $_REQUEST["description"];
+            $location = $_REQUEST["location"];
+            $reservations = $_REQUEST["reservations"];
+
+            $this->resources->modificarRecurso($id,$name,$description,$location,$reservations);
+    }
+    }
+
+    /**
+     * Constructor. Crea el objeto vista y los modelos
+     */
+    
 
     /**
      * Muestra el formulario de login
@@ -35,7 +76,14 @@ class ResourcesController
     {
         $this->view->show("loginForm");
     }
+    public function eliminar($id){
+        $this->resources->eliminarRecurso($id);
 
+
+
+
+      $id = $_REQUEST["id"];
+    }
     /**
      * Procesa el formulario de login y, si es correcto, inicia la sesión con el id del usuario.
      * Redirige a la vista de selección de rol.
@@ -82,7 +130,7 @@ class ResourcesController
         Security::closeSession();
         $this->view->show("loginForm");
     }
-
+   
     
     
 }
