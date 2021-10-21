@@ -23,6 +23,45 @@ class TimeSlotsController
         $this->view->show("createTimeSlots");
     }
 
+    public function insertarTimeSlots(){
+        if(isset($_REQUEST["dayofweek"]) && isset($_REQUEST["starttime"]) && isset($_REQUEST["endtime"])){
+            $dayofweek = $_REQUEST["dayofweek"];
+            $starttime = $_REQUEST["starttime"];
+            $endtime = $_REQUEST["endtime"];
+
+            $this->timeslots->insertarTimeSlots($dayofweek,$starttime,$endtime);
+            
+            
+    }
+}
+public function editarTimeSlots($id){
+    $data['resource'] = $this->timeslots->encontrar($id);
+    $this->view->show("updateTimeslots", $data);
+    
+}
+
+
+public function editar($id){
+
+if( isset($_REQUEST["id"]) && isset($_REQUEST["dayofweek"]) && isset($_REQUEST["starttime"]) && isset($_REQUEST["endtime"])){
+    $id = $_REQUEST["id"];
+    $dayofweek = $_REQUEST["dayofweek"];
+    $starttime = $_REQUEST["starttime"];
+    $endtime = $_REQUEST["endtime"];
+    
+
+    $this->timeslots->modificarTimeSlots($id,$dayofweek,$starttime,$endtime);
+}
+}
+    public function eliminar($id){
+    $this->timeslots->eliminarTimeSlots($id);
+
+
+
+
+  $id = $_REQUEST["id"];
+}
+
     public function showLoginForm()
     {
         $this->view->show("loginForm");

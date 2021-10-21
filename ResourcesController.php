@@ -49,9 +49,6 @@ class ResourcesController
 
     public function editar($id){
 
-
-        
-
 if( isset($_REQUEST["id"]) && isset($_REQUEST["name"]) && isset($_REQUEST["description"]) && isset($_REQUEST["location"]) && isset($_REQUEST["reservations"])){
             $id = $_REQUEST["id"];
             $name = $_REQUEST["name"];
