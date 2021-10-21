@@ -5,7 +5,7 @@ include_once ("Models/TimeSlots.php");
 
 class TimeSlotsController
 {
-
+    private $view, $TimeSlots;
     public function __construct()
     {
         //session_start(); // Si no se ha hecho en el index, claro
@@ -14,52 +14,48 @@ class TimeSlotsController
     }
 
     public function list(){
-        $data['list'] = $this->timeslots->timeslotslist();
+        $data['list'] = $this->TimeSlots->timeslotslist();
         $this->view->show("TimeSlotsList", $data);
     }
-    private $view, $TimeSlots;
+    
 
     public function mostrarFormulario(){
         $this->view->show("createTimeSlots");
     }
 
     public function insertarTimeSlots(){
-        if(isset($_REQUEST["dayofweek"]) && isset($_REQUEST["starttime"]) && isset($_REQUEST["endtime"])){
-            $dayofweek = $_REQUEST["dayofweek"];
-            $starttime = $_REQUEST["starttime"];
-            $endtime = $_REQUEST["endtime"];
+        if(isset($_REQUEST["dayOfWeek"]) && isset($_REQUEST["startTime"]) && isset($_REQUEST["endTime"])){
+            $dayofweek = $_REQUEST["dayOfWeek"];
+            $starttime = $_REQUEST["startTime"];
+            $endtime = $_REQUEST["endTime"];
 
-            $this->timeslots->insertarTimeSlots($dayofweek,$starttime,$endtime);
+            $this->TimeSlots->insertarTimeSlots($dayofweek,$starttime,$endtime);
             
             
     }
 }
 public function editarTimeSlots($id){
-    $data['resource'] = $this->timeslots->encontrar($id);
-    $this->view->show("updateTimeslots", $data);
+    $data['timeslots'] = $this->TimeSlots->encontrar($id);
+    $this->view->show("updateTimeSlots", $data);
     
 }
 
 
 public function editar($id){
 
-if( isset($_REQUEST["id"]) && isset($_REQUEST["dayofweek"]) && isset($_REQUEST["starttime"]) && isset($_REQUEST["endtime"])){
+if( isset($_REQUEST["id"]) && isset($_REQUEST["dayOfWeek"]) && isset($_REQUEST["startTime"]) && isset($_REQUEST["endTime"])){
     $id = $_REQUEST["id"];
-    $dayofweek = $_REQUEST["dayofweek"];
-    $starttime = $_REQUEST["starttime"];
-    $endtime = $_REQUEST["endtime"];
+    $dayofweek = $_REQUEST["dayOfWeek"];
+    $starttime = $_REQUEST["startTime"];
+    $endtime = $_REQUEST["endTime"];
     
 
-    $this->timeslots->modificarTimeSlots($id,$dayofweek,$starttime,$endtime);
+    $this->TimeSlots->modificarTimeSlots($id,$dayofweek,$starttime,$endtime);
 }
 }
     public function eliminar($id){
-    $this->timeslots->eliminarTimeSlots($id);
+    $this->TimeSlots->eliminarTimeSlots($id);
 
-
-
-
-  $id = $_REQUEST["id"];
 }
 
     public function showLoginForm()

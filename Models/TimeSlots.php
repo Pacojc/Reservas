@@ -18,37 +18,26 @@ class TimeSlots
        return $result;
     }
     public function encontrar($id){
-        $result = DB::dataQuery("SELECT * FROM tiemeslots   WHERE id=$id");
+        $result = DB::dataQuery("SELECT * FROM timeslots WHERE id=$id");
        return $result;
 
     }
     
-    public function eliminarTimeslots($idtimeslots){
+    public function eliminarTimeSlots($idtimeslots){
         
 
             // Recuperamos el id del libro y lanzamos el DELETE contra la BD
             $result = DB::dataManipulation("DELETE FROM timeslots WHERE id = '$idtimeslots'");
 
             // Mostramos mensaje con el resultado de la operación
-            if ($result->affected_rows == 0) {
-                echo "error no fue eliminado";
-            } else {
-                echo "eliminado con éxito";
-            }
             
 
     }
-    public function insertarTimeslots($idtimeslots,$dayofweek,$starttime,$endtime){
-            $result = DB::dataManipulation("INSERT INTO timeslots(id,dayofweek,starttime,endtime) VALUES ('$idtimeslots','$dayofweek', '$starttime', '$endtime')");
-
-            if ($result->affected_rows == 0) {
-                echo "error no fue insertado";
-            } else {
-                echo "insertado con éxito";
-            }
+    public function insertarTimeSlots($dayofweek,$starttime,$endtime){
+            $result = DB::dataManipulation("INSERT INTO timeslots(id,dayOfWeek,startTime,endTime) VALUES ('$dayofweek', '$starttime', '$endtime')");
 
     }
-    public function modificarTimeslots($idtimeslots,$dayofweek,$starttime,$endtime){
+    public function modificarTimeSlots($idtimeslots,$dayofweek,$starttime,$endtime){
         $result = DB::dataManipulation("UPDATE timeslots SET dayofweek='$dayofweek', starttime='$starttime', endtime='$endtime' WHERE id='$idtimeslots'");
     }
 

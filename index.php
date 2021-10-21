@@ -1,5 +1,6 @@
 <?php
 include_once("ResourcesController.php");
+include_once("TimeSlotsController.php");
 
 
 if (!isset($_REQUEST['action'])) {

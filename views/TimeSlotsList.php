@@ -1,6 +1,6 @@
 <?php
 
-    
+
     $timeslots = $data["list"];
 
 
@@ -24,12 +24,13 @@
     </tr>
     </thead>
     <tbody>";
-    foreach ($timeslots as $timeslots) {
-        $id=$timeslots['id'];
+    
+    foreach ($timeslots as $timeslot) {
+        $id=$timeslot['id'];
     echo "<tr>
-    <th scope='row' class='scope'>".$timeslots['dayofweek']."</th>
-    <td>".$timeslots['starttime']."</td>
-    <td>".$timeslots['endtime']."</td>
+    <th scope='row' class='scope'>".$timeslot['dayOfWeek']."</th>
+    <td>".$timeslot['startTime']."</td>
+    <td>".$timeslot['endTime']."</td>
     
     <td><a href='index.php?controller=TimeSlotsController&action=eliminar&id=$id' class='btn btn-primary'>Eliminar</a>
     <a href='index.php?controller=TimeSlotsController&action=editarTimeSlots&id=$id' class='btn btn-success'>Editar</a></td>
