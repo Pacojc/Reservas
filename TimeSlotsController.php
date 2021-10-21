@@ -6,19 +6,6 @@ include_once ("Models/TimeSlots.php");
 class TimeSlotsController
 {
 
-
-    public function index(){
-        View::show("Index");
-    }
-    public function list(){
-        $data['list'] = TimeSlots::timeslotslist();
-        View::show("TimeSlotsList", $data);
-    }
-    private $view, $TimeSlots;
-
-    /**
-     * Constructor. Crea el objeto vista y los modelos
-     */
     public function __construct()
     {
         //session_start(); // Si no se ha hecho en el index, claro
@@ -26,18 +13,22 @@ class TimeSlotsController
         $this->TimeSlots = new TimeSlots(); // Modelo de usuarios
     }
 
-    /**
-     * Muestra el formulario de login
-     */
+    public function list(){
+        $data['list'] = $this->timeslots->timeslotslist();
+        $this->view->show("TimeSlotsList", $data);
+    }
+    private $view, $TimeSlots;
+
+    public function mostrarFormulario(){
+        $this->view->show("createTimeSlots");
+    }
+
     public function showLoginForm()
     {
         $this->view->show("loginForm");
     }
 
-    /**
-     * Procesa el formulario de login y, si es correcto, inicia la sesión con el id del usuario.
-     * Redirige a la vista de selección de rol.
-     */
+   
     public function processLoginForm()
     {
 

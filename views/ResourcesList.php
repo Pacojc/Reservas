@@ -35,11 +35,13 @@
     <tbody>";
     foreach ($resources as $resource) {
         $id=$resource['id'];
+        $reservations = $resource['reservations'];
     echo "<tr>
     <th scope='row' class='scope'>".$resource['name']."</th>
     <td>".$resource['description']."</td>
     <td>".$resource['location']."</td>
-    <td>".$resource['reservations']."</td>
+    <td> <img src='$reservations' width='150px' height='100px'></td>
+
     
     <td><a href='index.php?controller=ResourcesController&action=eliminar&id=$id' class='btn btn-primary'>Eliminar</a>
     <a href='index.php?controller=ResourcesController&action=editarRecurso&id=$id' class='btn btn-success'>Editar</a></td>

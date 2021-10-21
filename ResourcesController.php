@@ -17,9 +17,7 @@ class ResourcesController
         $this->resources = new Resources(); // Modelo de usuarios
     }
 
-    public function index(){
-        View::show("Index");
-    }
+    
     public function list(){
         $data['list'] = $this->resources->resourceslist();
         $this->view->show("ResourcesList", $data);
@@ -37,6 +35,7 @@ class ResourcesController
             $reservations = $_REQUEST["reservations"];
 
             $this->resources->insertarRecurso($name,$description,$location,$reservations);
+            
             
     }
 }

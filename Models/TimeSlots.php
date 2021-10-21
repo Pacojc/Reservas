@@ -5,27 +5,24 @@ include_once("db.php");
 class TimeSlots
 {
 
-    /**
-     * Constructor de la clase.
-     * Crea una conexión con la base de datos y la asigna a la variable $this->db
-     */
+    
     public function __construct()
     {
         DB::createConnection();
     }
 
-    /**
-     * Comprueba si un email y una password pertenecen a algún timeslots de la base  de datos.
-     * @param String $email El email del timeslots que se quiere comprobar
-     * @param String $pass La contraseña del timeslots que se quiere comprobar
-     * @return User $timeslots Si el timeslots existe, devuelve un objeto con todos los campos del timeslots en su interior. Si no, devuelve un objeto null
-     */
     
-    public static function timeslotslist() //esta funcion devuelve todos los elementos que hay en la tabla
+    public function timeslotslist() //esta funcion devuelve todos los elementos que hay en la tabla
     {
        $result = DB::dataQuery("SELECT * FROM timeslots");
        return $result;
     }
+    public function encontrar($id){
+        $result = DB::dataQuery("SELECT * FROM tiemeslots   WHERE id=$id");
+       return $result;
+
+    }
+    
     public function eliminarTimeslots($idtimeslots){
         
 
