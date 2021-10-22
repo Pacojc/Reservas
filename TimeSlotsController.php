@@ -24,15 +24,9 @@ class TimeSlotsController
     }
 
     public function insertarTimeSlots(){
-        if(isset($_REQUEST["dayOfWeek"]) && isset($_REQUEST["startTime"]) && isset($_REQUEST["endTime"])){
-            $dayofweek = $_REQUEST["dayOfWeek"];
-            $starttime = $_REQUEST["startTime"];
-            $endtime = $_REQUEST["endTime"];
-
-            $this->TimeSlots->insertarTimeSlots($dayofweek,$starttime,$endtime);
-            header("Location: index.php?controller=TimeSlotsController&action=list");
-            
-    }
+   
+        $this->TimeSlots->insertarTimeSlots();
+    header("Location: index.php?controller=TimeSlotsController&action=list");
 }
 public function editarTimeSlots($id){
     $data['timeslots'] = $this->TimeSlots->encontrar($id);
@@ -43,16 +37,8 @@ public function editarTimeSlots($id){
 
 public function editar($id){
 
-if( isset($_REQUEST["id"]) && isset($_REQUEST["dayOfWeek"]) && isset($_REQUEST["startTime"]) && isset($_REQUEST["endTime"])){
-    $id = $_REQUEST["id"];
-    $dayofweek = $_REQUEST["dayOfWeek"];
-    $starttime = $_REQUEST["startTime"];
-    $endtime = $_REQUEST["endTime"];
-    
-
-    $this->TimeSlots->modificarTimeSlots($id,$dayofweek,$starttime,$endtime);
-    header("Location: index.php?controller=TimeSlotsController&action=list");
-}
+    $this->TimeSlots->modificarTimeSlots($id);
+header("Location: index.php?controller=TimeSlotsController&action=list");
 }
     public function eliminar($id){
     $this->TimeSlots->eliminarTimeSlots($id);

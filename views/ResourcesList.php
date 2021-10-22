@@ -28,7 +28,7 @@
     <th>Nombre</th>
     <th>Descripción</th>
     <th>Localización</th>
-    <th>Reserva</th>
+    <th>Imagen</th>
     <th>Acciones</th>
     </tr>
     </thead>

@@ -28,38 +28,22 @@ class ResourcesController
     }
 
     public function insertarRecurso(){
-        if(isset($_REQUEST["name"]) && isset($_REQUEST["description"]) && isset($_REQUEST["location"]) && isset($_REQUEST["reservations"])){
-            $name = $_REQUEST["name"];
-            $description = $_REQUEST["description"];
-            $location = $_REQUEST["location"];
-            $reservations = $_REQUEST["reservations"];
-
-            $this->resources->insertarRecurso($name,$description,$location,$reservations);
-            
-            
-    }
+        $this->resources->insertarRecurso();
+        header("Location: index.php?controller=ResourcesController&action=list");
 }
 
     public function editarRecurso($id){
             $data['resource'] = $this->resources->encontrar($id);
             $this->view->show("updateResources", $data);
-            header("Location: index.php?controller=ResourcesController&action=list");
+            
             
     }
 
 
     public function editar($id){
+        $this->resources->modificarRecurso($id);
 
-if( isset($_REQUEST["id"]) && isset($_REQUEST["name"]) && isset($_REQUEST["description"]) && isset($_REQUEST["location"]) && isset($_REQUEST["reservations"])){
-            $id = $_REQUEST["id"];
-            $name = $_REQUEST["name"];
-            $description = $_REQUEST["description"];
-            $location = $_REQUEST["location"];
-            $reservations = $_REQUEST["reservations"];
-
-            $this->resources->modificarRecurso($id,$name,$description,$location,$reservations);
-            header("Location: index.php?controller=ResourcesController&action=list");
-    }
+    header("Location: index.php?controller=ResourcesController&action=list");
     }
     public function eliminar($id){
         $this->resources->eliminarRecurso($id);

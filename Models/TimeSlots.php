@@ -33,12 +33,31 @@ class TimeSlots
             
 
     }
-    public function insertarTimeSlots($dayofweek,$starttime,$endtime){
-            $result = DB::dataManipulation("INSERT INTO timeslots(dayOfWeek,startTime,endTime) VALUES ('$dayofweek', '$starttime', '$endtime')");
+    public function insertarTimeSlots(){
+        if(isset($_REQUEST["dayOfWeek"]) && isset($_REQUEST["startTime"]) && isset($_REQUEST["endTime"])){
+            $dayofweek = $_REQUEST["dayOfWeek"];
+            $starttime = $_REQUEST["startTime"];
+            $endtime = $_REQUEST["endTime"];
+
+            $result = DB::dataManipulation("INSERT INTO timeslots(dayOfWeek,startTime,endTime) VALUES ('$dayofweek', '$starttime', '$endtime')");         
+    }
+
+
+           
 
     }
-    public function modificarTimeSlots($idtimeslots,$dayofweek,$starttime,$endtime){
-        $result = DB::dataManipulation("UPDATE timeslots SET dayofweek='$dayofweek', starttime='$starttime', endtime='$endtime' WHERE id='$idtimeslots'");
+    public function modificarTimeSlots($id){
+        if(isset($_REQUEST["dayOfWeek"]) && isset($_REQUEST["startTime"]) && isset($_REQUEST["endTime"])){
+            
+            $dayofweek = $_REQUEST["dayOfWeek"];
+            $starttime = $_REQUEST["startTime"];
+            $endtime = $_REQUEST["endTime"];
+            
+        
+            $result = DB::dataManipulation("UPDATE timeslots SET dayofweek='$dayofweek', starttime='$starttime', endtime='$endtime' WHERE id='$id'");
+            
+        }
+        
     }
 
     }
