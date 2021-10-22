@@ -6,4 +6,6 @@ class View {
 	include_once("views/$viewName.php");
 	include_once("views/footer.php");
 	}
+	
+
 }

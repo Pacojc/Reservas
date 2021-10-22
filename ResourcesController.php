@@ -43,6 +43,7 @@ class ResourcesController
     public function editarRecurso($id){
             $data['resource'] = $this->resources->encontrar($id);
             $this->view->show("updateResources", $data);
+            header("Location: index.php?controller=ResourcesController&action=list");
             
     }
 
@@ -57,9 +58,18 @@ if( isset($_REQUEST["id"]) && isset($_REQUEST["name"]) && isset($_REQUEST["descr
             $reservations = $_REQUEST["reservations"];
 
             $this->resources->modificarRecurso($id,$name,$description,$location,$reservations);
+            header("Location: index.php?controller=ResourcesController&action=list");
     }
     }
+    public function eliminar($id){
+        $this->resources->eliminarRecurso($id);
+        header("Location: index.php?controller=ResourcesController&action=list");
 
+
+
+
+      $id = $_REQUEST["id"];
+    }
     /**
      * Constructor. Crea el objeto vista y los modelos
      */
@@ -72,14 +82,7 @@ if( isset($_REQUEST["id"]) && isset($_REQUEST["name"]) && isset($_REQUEST["descr
     {
         $this->view->show("loginForm");
     }
-    public function eliminar($id){
-        $this->resources->eliminarRecurso($id);
-
-
-
-
-      $id = $_REQUEST["id"];
-    }
+    
     /**
      * Procesa el formulario de login y, si es correcto, inicia la sesión con el id del usuario.
      * Redirige a la vista de selección de rol.

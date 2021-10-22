@@ -2,6 +2,7 @@
 include_once("ResourcesController.php");
 include_once("TimeSlotsController.php");
 include_once("usersController.php");
+include_once("menuController.php");
 
 if (!isset($_REQUEST['action'])) {
 
@@ -13,7 +14,7 @@ if (!isset($_REQUEST['action'])) {
 
 if (!isset($_REQUEST['controller'])) {
 
-    $controller = "ResourcesController";
+    $controller = "menuController";
 } else {
 
     $controller = $_REQUEST['controller'];

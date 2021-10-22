@@ -34,6 +34,7 @@ class UsersController
             $realname = $_REQUEST["realname"];
 
             $this->users->insertarUser($username,$password,$realname);
+            header("Location: index.php?controller=usersController&action=list");
             
             
     }
@@ -56,9 +57,17 @@ if( isset($_REQUEST["id"]) && isset($_REQUEST["username"]) && isset($_REQUEST["p
             
 
             $this->users->modificarUser($id,$username,$password,$realname);
+            header("Location: index.php?controller=usersController&action=list");
     }
     }
+    public function eliminar($id){
+        $this->users->eliminarUser($id);
+        header("Location: index.php?controller=usersController&action=list");
 
+
+
+      $id = $_REQUEST["id"];
+    }
     /**
      * Constructor. Crea el objeto vista y los modelos
      */
@@ -71,14 +80,7 @@ if( isset($_REQUEST["id"]) && isset($_REQUEST["username"]) && isset($_REQUEST["p
     {
         $this->view->show("loginForm");
     }
-    public function eliminar($id){
-        $this->users->eliminarUser($id);
-
-
-
-
-      $id = $_REQUEST["id"];
-    }
+    
     /**
      * Procesa el formulario de login y, si es correcto, inicia la sesión con el id del usuario.
      * Redirige a la vista de selección de rol.
