@@ -26,7 +26,6 @@
     <thead class='thead-primary'>
     <tr>
     <th>Nombre de usuario</th>
-    <th>Contraseña</th>
     <th>Nombre real</th>
     <th>Acciones</th>
     </tr>
@@ -36,7 +35,6 @@
         $id=$user['id'];
     echo "<tr>
     <th scope='row' class='scope'>".$user['username']."</th>
-    <td>".$user['password']."</td>
     <td>".$user['realname']."</td>
     
 
