@@ -34,7 +34,7 @@ class TimeSlots
 
     }
     public function insertarTimeSlots($dayofweek,$starttime,$endtime){
-            $result = DB::dataManipulation("INSERT INTO timeslots(id,dayOfWeek,startTime,endTime) VALUES ('$dayofweek', '$starttime', '$endtime')");
+            $result = DB::dataManipulation("INSERT INTO timeslots(dayOfWeek,startTime,endTime) VALUES ('$dayofweek', '$starttime', '$endtime')");
 
     }
     public function modificarTimeSlots($idtimeslots,$dayofweek,$starttime,$endtime){

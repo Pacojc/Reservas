@@ -1,7 +1,7 @@
 <?php
 include_once("ResourcesController.php");
 include_once("TimeSlotsController.php");
-
+include_once("usersController.php");
 
 if (!isset($_REQUEST['action'])) {
 
@@ -25,8 +25,5 @@ if(isset($_REQUEST['id'])){
 }else{
     $id = null;
 }
-
-
-
 
 $controller->$action($id);

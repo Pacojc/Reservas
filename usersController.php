@@ -1,71 +1,88 @@
 <?php
+
 include_once ("view.php");
-include_once ("Models/TimeSlots.php");
+include_once ("Models/users.php");
 //include ("models/security.php");
 
-class TimeSlotsController
+class UsersController
 {
-    private $view, $TimeSlots;
+
+
+    private $users,$view;
+
     public function __construct()
     {
         //session_start(); // Si no se ha hecho en el index, claro
         $this->view = new View(); // Vistas
-        $this->TimeSlots = new TimeSlots(); // Modelo de usuarios
+        $this->users = new users(); // Modelo de usuarios
     }
 
-    public function list(){
-        $data['list'] = $this->TimeSlots->timeslotslist();
-        $this->view->show("TimeSlotsList", $data);
-    }
     
+    public function list(){
+        $data['list'] = $this->users->userslist();
+        $this->view->show("usersList", $data);
+    }
 
     public function mostrarFormulario(){
-        $this->view->show("createTimeSlots");
+        $this->view->show("createUsers");
     }
 
-    public function insertarTimeSlots(){
-        if(isset($_REQUEST["dayOfWeek"]) && isset($_REQUEST["startTime"]) && isset($_REQUEST["endTime"])){
-            $dayofweek = $_REQUEST["dayOfWeek"];
-            $starttime = $_REQUEST["startTime"];
-            $endtime = $_REQUEST["endTime"];
+    public function insertarUser(){
+        if(isset($_REQUEST["username"]) && isset($_REQUEST["password"]) && isset($_REQUEST["realname"])){
+            $username = $_REQUEST["username"];
+            $password = $_REQUEST["password"];
+            $realname = $_REQUEST["realname"];
 
-            $this->TimeSlots->insertarTimeSlots($dayofweek,$starttime,$endtime);
-            header("Location: index.php?controller=TimeSlotsController&action=list");
+            $this->users->insertarUser($username,$password,$realname);
+            
             
     }
 }
-public function editarTimeSlots($id){
-    $data['timeslots'] = $this->TimeSlots->encontrar($id);
-    $this->view->show("updateTimeSlots", $data);
+
+    public function editarUser($id){
+            $data['user'] = $this->users->encontrar($id);
+            $this->view->show("updateUsers", $data);
+            
+    }
+
+
+    public function editar($id){
+
+if( isset($_REQUEST["id"]) && isset($_REQUEST["username"]) && isset($_REQUEST["password"]) && isset($_REQUEST["realname"])){
+            $id = $_REQUEST["id"];
+            $username = $_REQUEST["username"];
+            $password = $_REQUEST["password"];
+            $realname = $_REQUEST["realname"];
+            
+
+            $this->users->modificarUser($id,$username,$password,$realname);
+    }
+    }
+
+    /**
+     * Constructor. Crea el objeto vista y los modelos
+     */
     
-}
 
-
-public function editar($id){
-
-if( isset($_REQUEST["id"]) && isset($_REQUEST["dayOfWeek"]) && isset($_REQUEST["startTime"]) && isset($_REQUEST["endTime"])){
-    $id = $_REQUEST["id"];
-    $dayofweek = $_REQUEST["dayOfWeek"];
-    $starttime = $_REQUEST["startTime"];
-    $endtime = $_REQUEST["endTime"];
-    
-
-    $this->TimeSlots->modificarTimeSlots($id,$dayofweek,$starttime,$endtime);
-    header("Location: index.php?controller=TimeSlotsController&action=list");
-}
-}
-    public function eliminar($id){
-    $this->TimeSlots->eliminarTimeSlots($id);
-    header("Location: index.php?controller=TimeSlotsController&action=list");
-
-}
-
+    /**
+     * Muestra el formulario de login
+     */
     public function showLoginForm()
     {
         $this->view->show("loginForm");
     }
+    public function eliminar($id){
+        $this->users->eliminarUser($id);
 
-   
+
+
+
+      $id = $_REQUEST["id"];
+    }
+    /**
+     * Procesa el formulario de login y, si es correcto, inicia la sesión con el id del usuario.
+     * Redirige a la vista de selección de rol.
+     */
     public function processLoginForm()
     {
 
@@ -108,7 +125,7 @@ if( isset($_REQUEST["id"]) && isset($_REQUEST["dayOfWeek"]) && isset($_REQUEST["
         Security::closeSession();
         $this->view->show("loginForm");
     }
-
+   
     
     
 }
