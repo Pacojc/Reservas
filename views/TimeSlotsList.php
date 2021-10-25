@@ -27,10 +27,13 @@
     
     foreach ($timeslots as $timeslot) {
         $id=$timeslot['id'];
+
+        $startime = substr($timeslot['startTime'],0,5);
+        $endtime = substr($timeslot['endTime'],0,5);
     echo "<tr>
     <th scope='row' class='scope'>".$timeslot['dayOfWeek']."</th>
-    <td>".$timeslot['startTime']."</td>
-    <td>".$timeslot['endTime']."</td>
+    <td>".$startime."</td>
+    <td>".$endtime."</td>
     
     <td><a href='index.php?controller=TimeSlotsController&action=eliminar&id=$id' class='btn btn-primary'>Eliminar</a>
     <a href='index.php?controller=TimeSlotsController&action=editarTimeSlots&id=$id' class='btn btn-success'>Editar</a></td>

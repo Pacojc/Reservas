@@ -1,5 +1,7 @@
 <?php
 include_once ("view.php");
+include_once ("Models/security.php");
+include_once ("Models/users.php");
 
 class MenuController{
 
@@ -8,12 +10,20 @@ class MenuController{
     {
         //session_start(); // Si no se ha hecho en el index, claro
         $this->view = new View(); // Vistas
-       
+        $this->users = new users();
     }
 
 
     public function list(){
-       
-        $this->view->show("menuList");
+
+
+        if(Security::thereIsSession()){
+            $data['userLogueado'] = $this->users->usuarioLogueado();
+        }else{
+            $data = null;
+        }
+        
+        
+        $this->view->show("menuList", $data);
     }
 }

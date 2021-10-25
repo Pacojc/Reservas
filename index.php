@@ -4,6 +4,9 @@ include_once("TimeSlotsController.php");
 include_once("usersController.php");
 include_once("menuController.php");
 
+
+session_start();
+
 if (!isset($_REQUEST['action'])) {
 
     $action = "list";

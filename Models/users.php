@@ -1,7 +1,7 @@
 <?php
 
 include_once("db.php");
-
+include_once("security.php");
 class Users
 {
 
@@ -44,5 +44,46 @@ class Users
         $result = DB::dataManipulation("UPDATE users SET username='$username', password='$password', realname='$realname' WHERE id='$idUsers'");
     }
 
+    public function crearUsuario(){
+        if(isset($_REQUEST['username']) && isset($_REQUEST['password']) && isset($_REQUEST['realname'])){
+            $username = $_REQUEST['username'];
+            $password = $_REQUEST['password'];
+            $realname = $_REQUEST['realname'];
+
+
+        $result = DB::dataManipulation("INSERT INTO users(username,password,realname,type) VALUES ('$username', '$password', '$realname',0)");
+        }else{
+            $result = null;
+        }
+
+
+        return $result;
     }
-?>
+
+
+
+
+    public function checkLogin()
+    {
+
+        $username = $_REQUEST['username'];
+        $password = $_REQUEST['password'];
+
+       $result = DB::dataQuery("SELECT * FROM users WHERE username = '$username' AND password = '$password'");
+       if (count($result) > 0){
+        Security::createSession($result[0]['id']);
+            return $result[0];
+       }else{
+            return null;
+
+    }
+
+    }
+
+
+    public function usuarioLogueado(){
+        $id = Security::getUserId();
+        $result = DB::dataQuery("SELECT * FROM users WHERE id=$id");
+       return $result;
+    }
+}

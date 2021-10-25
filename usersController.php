@@ -68,6 +68,34 @@ if( isset($_REQUEST["id"]) && isset($_REQUEST["username"]) && isset($_REQUEST["p
 
       $id = $_REQUEST["id"];
     }
+    public function registro(){
+        $this->view->show("register");
+    }
+    public function login(){
+        $this->view->show("login");
+    }
+
+
+
+    public function loginUsuario(){
+        $result = $this->users->checklogin();
+
+        if($result){
+            header("Location: index.php");
+        }else{
+            echo "no ok";
+        }
+    }
+
+    public function crearUsuario(){
+        $result = $this->users->crearUsuario();
+
+        if($result){
+            header("Location: index.php");
+        }else{
+            echo"error";
+        }
+    }
     /**
      * Constructor. Crea el objeto vista y los modelos
      */
