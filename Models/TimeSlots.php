@@ -60,5 +60,14 @@ class TimeSlots
         
     }
 
+
+   
+    public function obtenerHorario($diaSemana){
+        
+        $result = DB::dataQuery("SELECT * FROM timeslots WHERE dayOfWeek = '$diaSemana'");
+        return $result;
+    }
+
+
     }
 ?>

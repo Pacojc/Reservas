@@ -60,13 +60,14 @@ if( isset($_REQUEST["id"]) && isset($_REQUEST["username"]) && isset($_REQUEST["p
             header("Location: index.php?controller=usersController&action=list");
     }
     }
-    public function eliminar($id){
+    public function eliminar(){
+        $id = $_REQUEST["id"];
         $this->users->eliminarUser($id);
         header("Location: index.php?controller=usersController&action=list");
 
 
 
-      $id = $_REQUEST["id"];
+     
     }
     public function registro(){
         $this->view->show("register");
@@ -91,7 +92,7 @@ if( isset($_REQUEST["id"]) && isset($_REQUEST["username"]) && isset($_REQUEST["p
         $result = $this->users->crearUsuario();
 
         if($result){
-            header("Location: index.php");
+            header("Location: index.php?controller=usersController&action=login");
         }else{
             echo"error";
         }

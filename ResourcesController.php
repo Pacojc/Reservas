@@ -45,14 +45,15 @@ class ResourcesController
 
     header("Location: index.php?controller=ResourcesController&action=list");
     }
-    public function eliminar($id){
+    public function eliminar(){
+        $id = $_REQUEST["id"];
         $this->resources->eliminarRecurso($id);
         header("Location: index.php?controller=ResourcesController&action=list");
 
 
 
 
-      $id = $_REQUEST["id"];
+     
     }
     /**
      * Constructor. Crea el objeto vista y los modelos

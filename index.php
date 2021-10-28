@@ -3,7 +3,7 @@ include_once("ResourcesController.php");
 include_once("TimeSlotsController.php");
 include_once("usersController.php");
 include_once("menuController.php");
-
+include_once("reservasController.php");
 
 session_start();
 
@@ -24,10 +24,5 @@ if (!isset($_REQUEST['controller'])) {
 }
 $controller = new $controller();
 
-if(isset($_REQUEST['id'])){
-    $id = $_REQUEST['id'];
-}else{
-    $id = null;
-}
 
-$controller->$action($id);
+$controller->$action();

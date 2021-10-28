@@ -40,7 +40,8 @@ public function editar($id){
     $this->TimeSlots->modificarTimeSlots($id);
 header("Location: index.php?controller=TimeSlotsController&action=list");
 }
-    public function eliminar($id){
+    public function eliminar(){
+        $id = $_REQUEST["id"];
     $this->TimeSlots->eliminarTimeSlots($id);
     header("Location: index.php?controller=TimeSlotsController&action=list");
 
