@@ -6,4 +6,7 @@ date datetime,
 remarks varchar(5000),
 FOREIGN KEY(idResource)REFERENCES resources(id), 
 FOREIGN KEY(idUser)REFERENCES users(id), 
-FOREIGN KEY(idTimeSlots)REFERENCES timeslots(id))
+FOREIGN KEY(idTimeSlots)REFERENCES timeslots(id)
+PRIMARY KEY (72,333,333)
+
+);

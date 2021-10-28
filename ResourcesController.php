@@ -32,7 +32,8 @@ class ResourcesController
         header("Location: index.php?controller=ResourcesController&action=list");
 }
 
-    public function editarRecurso($id){
+    public function editarRecurso(){
+        $id = $_REQUEST['id'];
             $data['resource'] = $this->resources->encontrar($id);
             $this->view->show("updateResources", $data);
             
@@ -40,7 +41,8 @@ class ResourcesController
     }
 
 
-    public function editar($id){
+    public function editar(){
+        $id = $_REQUEST['id'];
         $this->resources->modificarRecurso($id);
 
     header("Location: index.php?controller=ResourcesController&action=list");
