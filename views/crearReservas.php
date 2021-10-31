@@ -1,5 +1,6 @@
 <?php
 $recursos = $data['recursos'];
+$seleccionado = $data['seleccionado'];
 
 echo "<form method='POST' action='index.php?controller=reservasController&action=mostrarFormulario2'>";
 echo "Seleccione el recurso que desea reservar:  ";
@@ -9,7 +10,15 @@ echo "<select id='idRecurso' name='idRecurso'>";
 
 foreach ($recursos as $recurso) {
     $id = $recurso['id'];
-    echo "<option value='$id'>";
+    echo "<option value='$id'";
+    
+    if($seleccionado == $id)
+    {
+        echo "selected";
+    }
+
+
+    echo ">";
     echo $recurso['name'];
     echo "</option>";
 }

@@ -2,7 +2,8 @@
 
 include_once ("view.php");
 include_once ("Models/Resources.php");
-//include ("models/security.php");
+include_once ("Models/users.php");
+include_once ("models/security.php");
 
 class ResourcesController
 {
@@ -15,11 +16,20 @@ class ResourcesController
         //session_start(); // Si no se ha hecho en el index, claro
         $this->view = new View(); // Vistas
         $this->resources = new Resources(); // Modelo de usuarios
+        $this->users = new users();
+
+
+        if(Security::thereIsSession()==false){
+            header("Location: index.php?controller=usersController&action=login");
+        }
+
+
     }
 
     
     public function list(){
         $data['list'] = $this->resources->resourceslist();
+        $data['login'] = $this->users->usuarioLogueado();
         $this->view->show("ResourcesList", $data);
     }
 

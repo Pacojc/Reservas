@@ -70,10 +70,18 @@ if( isset($_REQUEST["id"]) && isset($_REQUEST["username"]) && isset($_REQUEST["p
      
     }
     public function registro(){
+        if(Security::thereIsSession()){
+            header("Location: index.php");
+        }
         $this->view->show("register");
     }
-    public function login(){
-        $this->view->show("login");
+    public function login($data = null){
+        if(Security::thereIsSession()){
+            header("Location: index.php");
+        }
+
+
+        $this->view->show("login", $data);
     }
 
 
@@ -84,7 +92,8 @@ if( isset($_REQUEST["id"]) && isset($_REQUEST["username"]) && isset($_REQUEST["p
         if($result){
             header("Location: index.php");
         }else{
-            echo "no ok";
+            $data['error'] = "Error, usuario o contraseña incorrectos!!";
+            $this->login($data);
         }
     }
 
@@ -154,7 +163,7 @@ if( isset($_REQUEST["id"]) && isset($_REQUEST["username"]) && isset($_REQUEST["p
      */    
     public function closeSession() {
         Security::closeSession();
-        $this->view->show("loginForm");
+        header("Location: index.php");
     }
    
     

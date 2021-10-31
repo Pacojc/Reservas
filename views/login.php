@@ -1,4 +1,16 @@
 <?php
+
+if(isset($data['error'])){
+    $error = $data['error'];
+
+
+
+    echo "<h2 style='color:red'>$error</h2>";
+}
+
+
+
+
 echo "<form action = 'index.php?controller=usersController&action=loginUsuario' enctype='multipart/form-data' method = 'post'>
 
     <div class='form-group'> <!--Nombre de usuario -->

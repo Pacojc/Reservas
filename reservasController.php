@@ -5,6 +5,7 @@ include_once ("Models/reservas.php");
 include_once ("Models/TimeSlots.php");
 include_once ("Models/Resources.php");
 include_once ("Models/users.php");
+include_once ("Models/security.php");
 
 
 
@@ -26,6 +27,7 @@ Class reservasController{
 
 
     public function mostrarFormulario(){
+        $data['seleccionado'] = $_REQUEST['id'];
         $data['recursos'] = $this->resources->resourceslist();
         $data['Lunes'] = $this->timeslots->obtenerHorario("Lunes");
         $this->view->show("crearReservas", $data);
@@ -67,10 +69,6 @@ Class reservasController{
     }
 
 
-
-
-
-
     public function insertarReserva(){
         if(isset($_REQUEST["username"]) && isset($_REQUEST["password"]) && isset($_REQUEST["realname"])){
             $username = $_REQUEST["username"];
@@ -83,5 +81,34 @@ Class reservasController{
             
     }
 }
+
+
+
+
+
+    public function mostrar(){
+
+        $data['reservas'] = $this->reservas->reservasList();
+
+        $data['login'] = Security::getUserId();
+
+        $this->view->show("mostrarReservas",$data);
+    }
+
+
+
+    public function eliminar(){
+        $result = $this->reservas->eliminar();
+
+        if($result){
+            //redireccionar
+            echo "Se ha eliminado correctamente";
+
+        }else{
+            echo "Ha ocurrido un error, ha pringar!";
+        }
+
+
+    }
 
 }

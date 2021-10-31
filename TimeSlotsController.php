@@ -11,6 +11,11 @@ class TimeSlotsController
         //session_start(); // Si no se ha hecho en el index, claro
         $this->view = new View(); // Vistas
         $this->TimeSlots = new TimeSlots(); // Modelo de usuarios
+
+
+        if(Security::thereIsSession()==false){
+            header("Location: index.php?controller=usersController&action=login");
+        }
     }
 
     public function list(){

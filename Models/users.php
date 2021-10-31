@@ -35,19 +35,21 @@ class Users
 
     }
     public function insertarUser($username,$password,$realname){
+            $password = md5($password);
             $result = DB::dataManipulation("INSERT INTO users(username,password,realname) VALUES ('$username', '$password', '$realname')");
 
            
 
     }
     public function modificarUser($idUsers,$username,$password,$realname){
+        $password = md5($password);
         $result = DB::dataManipulation("UPDATE users SET username='$username', password='$password', realname='$realname' WHERE id='$idUsers'");
     }
 
     public function crearUsuario(){
         if(isset($_REQUEST['username']) && isset($_REQUEST['password']) && isset($_REQUEST['realname'])){
             $username = $_REQUEST['username'];
-            $password = $_REQUEST['password'];
+            $password = md5($_REQUEST['password']);
             $realname = $_REQUEST['realname'];
 
 
@@ -67,10 +69,13 @@ class Users
     {
 
         $username = $_REQUEST['username'];
-        $password = $_REQUEST['password'];
+        $password = md5($_REQUEST['password']);
+        
 
        $result = DB::dataQuery("SELECT * FROM users WHERE username = '$username' AND password = '$password'");
-       if (count($result) > 0){
+
+       if ($result){
+           
         Security::createSession($result[0]['id']);
             return $result[0];
        }else{

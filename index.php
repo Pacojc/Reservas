@@ -7,6 +7,7 @@ include_once("reservasController.php");
 
 session_start();
 
+
 if (!isset($_REQUEST['action'])) {
 
     $action = "list";

@@ -1,5 +1,6 @@
 <?php
     include_once("db.php");
+    include_once("security.php");
 
     Class reservas{
         
@@ -16,6 +17,53 @@
 
             return $result;
         }
+
+
+
+        public function reservasList() //esta funcion devuelve todos los elementos que hay en la tabla
+    {
+       $result = DB::dataQuery("SELECT *
+       FROM resources 
+       INNER JOIN reservations ON resources.id = reservations.idResource
+       INNER JOIN users ON reservations.idUser = users.id
+       INNER JOIN timeslots ON reservations.idTimeSlots = timeslots.id;");
+       return $result;
+    }
+
+
+
+
+    public function eliminar(){
+
+        if(isset($_REQUEST['idResource']) && isset($_REQUEST['idUser']) && isset($_REQUEST['idTimeSlots'])){
+            $idResource=$_REQUEST['idResource'];
+            $idUser = $_REQUEST['idUser'];
+            $idTimeSlots = $_REQUEST['idTimeSlots'];
+
+
+            if(Security::getUserId() == $idUser){
+                $result = DB::dataManipulation("DELETE FROM reservations WHERE idResource = $idResource AND idUser = $idUser AND idTimeSlots = $idTimeSlots");
+
+                return $result;
+            }else{
+                return null;
+            }
+
+
+            
+
+
+            
+
+
+        }else{
+            return null;
+        }
+
+        
+
+
+    }
 
 
 

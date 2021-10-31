@@ -11,6 +11,9 @@ class MenuController{
         //session_start(); // Si no se ha hecho en el index, claro
         $this->view = new View(); // Vistas
         $this->users = new users();
+        if(Security::thereIsSession()==false){
+            header("Location: index.php?controller=usersController&action=login");
+        }
     }
 
 
