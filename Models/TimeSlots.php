@@ -17,7 +17,8 @@ class TimeSlots
        $result = DB::dataQuery("SELECT * FROM timeslots");
        return $result;
     }
-    public function encontrar($id){
+    public function encontrar(){
+        $id = $_REQUEST['id'];
         $result = DB::dataQuery("SELECT * FROM timeslots WHERE id=$id");
        return $result;
 
@@ -46,13 +47,14 @@ class TimeSlots
            
 
     }
-    public function modificarTimeSlots($id){
+    public function modificarTimeSlots(){
+        
         if(isset($_REQUEST["dayOfWeek"]) && isset($_REQUEST["startTime"]) && isset($_REQUEST["endTime"])){
             
             $dayofweek = $_REQUEST["dayOfWeek"];
             $starttime = $_REQUEST["startTime"];
             $endtime = $_REQUEST["endTime"];
-            
+            $id = $_REQUEST['id'];
         
             $result = DB::dataManipulation("UPDATE timeslots SET dayofweek='$dayofweek', starttime='$starttime', endtime='$endtime' WHERE id='$id'");
             

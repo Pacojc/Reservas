@@ -30,11 +30,11 @@ class ResourcesController
     public function list(){
         $data['list'] = $this->resources->resourceslist();
         $data['login'] = $this->users->usuarioLogueado();
-        $this->view->show("ResourcesList", $data);
+        $this->view->show("resources/ResourcesList", $data);
     }
 
     public function mostrarFormulario(){
-        $this->view->show("createResources");
+        $this->view->show("resources/createResources");
     }
 
     public function insertarRecurso(){
@@ -45,7 +45,7 @@ class ResourcesController
     public function editarRecurso(){
         $id = $_REQUEST['id'];
             $data['resource'] = $this->resources->encontrar($id);
-            $this->view->show("updateResources", $data);
+            $this->view->show("resources/updateResources", $data);
             
             
     }
@@ -77,7 +77,7 @@ class ResourcesController
      */
     public function showLoginForm()
     {
-        $this->view->show("loginForm");
+        $this->view->show("resources/loginForm");
     }
     
     /**

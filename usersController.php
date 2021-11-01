@@ -20,11 +20,11 @@ class UsersController
     
     public function list(){
         $data['list'] = $this->users->userslist();
-        $this->view->show("usersList", $data);
+        $this->view->show("usuarios/usersList", $data);
     }
 
     public function mostrarFormulario(){
-        $this->view->show("createUsers");
+        $this->view->show("usuarios/createUsers");
     }
 
     public function insertarUser(){
@@ -40,14 +40,14 @@ class UsersController
     }
 }
 
-    public function editarUser($id){
-            $data['user'] = $this->users->encontrar($id);
-            $this->view->show("updateUsers", $data);
+    public function editarUser(){
+            $data['user'] = $this->users->encontrar();
+            $this->view->show("usuarios/updateUsers", $data);
             
     }
 
 
-    public function editar($id){
+    public function editar(){
 
 if( isset($_REQUEST["id"]) && isset($_REQUEST["username"]) && isset($_REQUEST["password"]) && isset($_REQUEST["realname"])){
             $id = $_REQUEST["id"];
@@ -69,11 +69,11 @@ if( isset($_REQUEST["id"]) && isset($_REQUEST["username"]) && isset($_REQUEST["p
 
      
     }
-    public function registro(){
+    public function registro($data = null){
         if(Security::thereIsSession()){
             header("Location: index.php");
         }
-        $this->view->show("register");
+        $this->view->show("usuarios/register", $data);
     }
     public function login($data = null){
         if(Security::thereIsSession()){
@@ -81,7 +81,7 @@ if( isset($_REQUEST["id"]) && isset($_REQUEST["username"]) && isset($_REQUEST["p
         }
 
 
-        $this->view->show("login", $data);
+        $this->view->show("usuarios/login", $data);
     }
 
 
@@ -100,10 +100,11 @@ if( isset($_REQUEST["id"]) && isset($_REQUEST["username"]) && isset($_REQUEST["p
     public function crearUsuario(){
         $result = $this->users->crearUsuario();
 
-        if($result){
+        if($result==1){
             header("Location: index.php?controller=usersController&action=login");
         }else{
-            echo"error";
+            $data['error'] = "El usuario ya existe o ha utilizado carácteres no permitidos";
+            $this->registro($data);
         }
     }
     /**

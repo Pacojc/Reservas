@@ -20,12 +20,12 @@ class TimeSlotsController
 
     public function list(){
         $data['list'] = $this->TimeSlots->timeslotslist();
-        $this->view->show("TimeSlotsList", $data);
+        $this->view->show("timeslots/TimeSlotsList", $data);
     }
     
 
     public function mostrarFormulario(){
-        $this->view->show("createTimeSlots");
+        $this->view->show("timeslots/createTimeSlots");
     }
 
     public function insertarTimeSlots(){
@@ -33,16 +33,16 @@ class TimeSlotsController
         $this->TimeSlots->insertarTimeSlots();
     header("Location: index.php?controller=TimeSlotsController&action=list");
 }
-public function editarTimeSlots($id){
-    $data['timeslots'] = $this->TimeSlots->encontrar($id);
-    $this->view->show("updateTimeSlots", $data);
+public function editarTimeSlots(){
+    $data['timeslots'] = $this->TimeSlots->encontrar();
+    $this->view->show("timeslots/updateTimeSlots", $data);
     
 }
 
 
-public function editar($id){
+public function editar(){
 
-    $this->TimeSlots->modificarTimeSlots($id);
+    $this->TimeSlots->modificarTimeSlots();
 header("Location: index.php?controller=TimeSlotsController&action=list");
 }
     public function eliminar(){
@@ -52,37 +52,6 @@ header("Location: index.php?controller=TimeSlotsController&action=list");
 
 }
 
-    public function showLoginForm()
-    {
-        $this->view->show("loginForm");
-    }
-
-   
-    public function processLoginForm()
-    {
-
-        // Validación del formulario
-        if (Security::filter($_REQUEST['email']) == "" || Security::filter($_REQUEST['pass']) == "") {
-            // Algún campo del formulario viene vacío: volvemos a mostrar el login
-            $data['errorMsg'] = "El email y la contraseña son obligatorios";
-            $this->view->show("loginForm", $data);
-        }
-        else {
-            // Hemos pasado la validación del formulario: vamos a procesarlo
-            $email = Security::filter($_REQUEST['email']);
-            $pass = Security::filter($_REQUEST['pass']);
-            $userData = $this->user->checkLogin($email, $pass);
-            if ($userData!=null) {
-                // Login correcto: creamos la sesión y pedimos al usuario que elija su rol
-                Security::createSession($userData->id);
-                
-            }
-            else {
-                $data['errorMsg'] = "Usuario o contraseña incorrectos";
-                $this->view->show("loginForm", $data);
-            }
-        }
-    }
 
     /**
      * Muestra el menú de opciones del usuario según la tabla de persmisos

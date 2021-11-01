@@ -2,6 +2,10 @@
 $recursos = $data['recursos'];
 $seleccionado = $data['seleccionado'];
 
+
+
+
+
 echo "<form method='POST' action='index.php?controller=reservasController&action=mostrarFormulario2'>";
 echo "Seleccione el recurso que desea reservar:  ";
 //echo "<br>";

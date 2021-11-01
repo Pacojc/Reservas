@@ -18,7 +18,8 @@ class Users
        return $result;
     }
 
-    public function encontrar($id){
+    public function encontrar(){
+        $id = $_REQUEST['id'];
         $result = DB::dataQuery("SELECT * FROM users WHERE id=$id");
        return $result;
 
@@ -52,8 +53,18 @@ class Users
             $password = md5($_REQUEST['password']);
             $realname = $_REQUEST['realname'];
 
+            
+            if(Security::filter($username)==$username && Security::filter($password)==$password && Security::filter($realname)==$realname){
+                $result = DB::dataManipulation("INSERT INTO users(username,password,realname,type) VALUES ('$username', '$password', '$realname',0)");
+            }else{
+                $result = null;
+            }
+    
 
-        $result = DB::dataManipulation("INSERT INTO users(username,password,realname,type) VALUES ('$username', '$password', '$realname',0)");
+
+
+
+        
         }else{
             $result = null;
         }
@@ -70,9 +81,15 @@ class Users
 
         $username = $_REQUEST['username'];
         $password = md5($_REQUEST['password']);
+
+        if(Security::filter($username)==$username && Security::filter($password)==$password){
+            $result = DB::dataQuery("SELECT * FROM users WHERE username = '$username' AND password = '$password'");
+        }
+
+
         
 
-       $result = DB::dataQuery("SELECT * FROM users WHERE username = '$username' AND password = '$password'");
+       
 
        if ($result){
            

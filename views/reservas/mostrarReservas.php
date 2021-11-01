@@ -5,6 +5,17 @@
 $reservas = $data['reservas'];
 $login = $data['login'];
 
+if(isset($data['error'])){
+    if(isset($data['error'])){
+        echo "<h2 style='color:red'>";
+        
+        echo $data['error'];
+        
+        echo "</h2>";
+    }
+    
+}
+
 
 //echo "HOOOOLLA";
 

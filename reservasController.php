@@ -30,7 +30,7 @@ Class reservasController{
         $data['seleccionado'] = $_REQUEST['id'];
         $data['recursos'] = $this->resources->resourceslist();
         $data['Lunes'] = $this->timeslots->obtenerHorario("Lunes");
-        $this->view->show("crearReservas", $data);
+        $this->view->show("reservas/crearReservas", $data);
     }
 
     public function mostrarFormulario2(){
@@ -54,7 +54,7 @@ Class reservasController{
         $data['usuario'] = $this->users->usuarioLogueado();
 
 
-        $this->view->show("crearReservas2", $data);
+        $this->view->show("reservas/crearReservas2", $data);
     }
 
 
@@ -62,9 +62,11 @@ Class reservasController{
         $result = $this->reservas->crearReserva();
 
         if($result>0){
-            echo "OK";
+            header("Location: index.php?controller=reservasController&action=mostrar");
         }else{
-            echo "ERROR";
+            
+            $data['error'] = "Ha ocurrido un error al procesar la reserva prueba con otro tramo horario";
+            $this->mostrar($data);
         }
     }
 
@@ -86,13 +88,13 @@ Class reservasController{
 
 
 
-    public function mostrar(){
+    public function mostrar($data = null){
 
         $data['reservas'] = $this->reservas->reservasList();
 
         $data['login'] = Security::getUserId();
 
-        $this->view->show("mostrarReservas",$data);
+        $this->view->show("reservas/mostrarReservas",$data);
     }
 
 

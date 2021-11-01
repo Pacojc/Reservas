@@ -58,8 +58,14 @@ class Security {
      * ataque por inyección de SQL o JS
      */
     public static function filter($str) {
-        // Aquí eliminaríamos los caracteres y expresiones sospechosas
-        // (Está sin implementar)
+        
+        
+        $str = preg_replace('([^A-Za-z0-9])', '', $str);
+        
+
+
+
+
         return $str;
     }
 
