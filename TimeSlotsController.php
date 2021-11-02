@@ -6,13 +6,18 @@ include_once ("Models/TimeSlots.php");
 class TimeSlotsController
 {
     private $view, $TimeSlots;
+
+    /**
+     * En caso de que no exista una sesion el usuario no debe de poder hacer nada con este controlador asi que 
+     * sera automaticamente redireccionado para que se loguee.
+    */
     public function __construct()
     {
         //session_start(); // Si no se ha hecho en el index, claro
         $this->view = new View(); // Vistas
         $this->TimeSlots = new TimeSlots(); // Modelo de usuarios
 
-
+        
         if(Security::thereIsSession()==false){
             header("Location: index.php?controller=usersController&action=login");
         }
@@ -50,26 +55,5 @@ header("Location: index.php?controller=TimeSlotsController&action=list");
     $this->TimeSlots->eliminarTimeSlots($id);
     header("Location: index.php?controller=TimeSlotsController&action=list");
 
-}
-
-
-    /**
-     * Muestra el menú de opciones del usuario según la tabla de persmisos
-     */
-    public function showMainMenu()
-    {
-        $data['permissions'] = $this->user->getUserPermissions(Security::getRolId());
-        $this->view->show("mainMenu", $data);
     }
-
-    /**
-     * Cierra la sesión
-     */    
-    public function closeSession() {
-        Security::closeSession();
-        $this->view->show("loginForm");
-    }
-
-    
-    
 }

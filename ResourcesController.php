@@ -26,22 +26,35 @@ class ResourcesController
 
     }
 
-    
+    /** 
+     * Este metodo carga los recursos llamando al metodo resourceslist que se encuentra en el modelo de 
+     * resources y lo guarda en una posicion del array data.
+     * Posteriormente cargamos los datos del usuario que tenga sesion iniciada y nuevamente lo guardamos en una posicion del array data.
+     * El array que en el que metemos los datos se lo pasamos a la vista ResourcesList
+     */
     public function list(){
         $data['list'] = $this->resources->resourceslist();
         $data['login'] = $this->users->usuarioLogueado();
         $this->view->show("resources/ResourcesList", $data);
     }
-
+    /**
+     * Unicamente muestra la vista que contiene el formulario de creacion de recursos.
+     */
     public function mostrarFormulario(){
         $this->view->show("resources/createResources");
     }
-
+    /**
+     * Llama al método insertar recursos a los que se les pasara los datos que se han metido previamente en el formulario, una vez
+     * terminado esto redireccionamos a la vista de recursos.
+     */
     public function insertarRecurso(){
         $this->resources->insertarRecurso();
         header("Location: index.php?controller=ResourcesController&action=list");
 }
-
+    /**
+     * Cogemos el id del recurso que se quiera editar y se lo pasamos a un metodo que lo busca dentro de todos los recursos
+     * para cargar sus datos en el formulario de edicion.
+     */
     public function editarRecurso(){
         $id = $_REQUEST['id'];
             $data['resource'] = $this->resources->encontrar($id);
@@ -50,13 +63,16 @@ class ResourcesController
             
     }
 
-
+    /**
+     * Cogemos el id del recurso a editar y los nuevos valores reemplazan a los anteriores.
+     */
     public function editar(){
         $id = $_REQUEST['id'];
         $this->resources->modificarRecurso($id);
 
     header("Location: index.php?controller=ResourcesController&action=list");
     }
+    /**Coge el ide del recurso que se desea eliminar y se lo pasa como parametro al metodo distinguiendolo por el id. */
     public function eliminar(){
         $id = $_REQUEST["id"];
         $this->resources->eliminarRecurso($id);
@@ -67,66 +83,5 @@ class ResourcesController
 
      
     }
-    /**
-     * Constructor. Crea el objeto vista y los modelos
-     */
-    
-
-    /**
-     * Muestra el formulario de login
-     */
-    public function showLoginForm()
-    {
-        $this->view->show("resources/loginForm");
-    }
-    
-    /**
-     * Procesa el formulario de login y, si es correcto, inicia la sesión con el id del usuario.
-     * Redirige a la vista de selección de rol.
-     */
-    public function processLoginForm()
-    {
-
-        // Validación del formulario
-        if (Security::filter($_REQUEST['email']) == "" || Security::filter($_REQUEST['pass']) == "") {
-            // Algún campo del formulario viene vacío: volvemos a mostrar el login
-            $data['errorMsg'] = "El email y la contraseña son obligatorios";
-            $this->view->show("loginForm", $data);
-        }
-        else {
-            // Hemos pasado la validación del formulario: vamos a procesarlo
-            $email = Security::filter($_REQUEST['email']);
-            $pass = Security::filter($_REQUEST['pass']);
-            $userData = $this->user->checkLogin($email, $pass);
-            if ($userData!=null) {
-                // Login correcto: creamos la sesión y pedimos al usuario que elija su rol
-                Security::createSession($userData->id);
-                
-            }
-            else {
-                $data['errorMsg'] = "Usuario o contraseña incorrectos";
-                $this->view->show("loginForm", $data);
-            }
-        }
-    }
-
-    /**
-     * Muestra el menú de opciones del usuario según la tabla de persmisos
-     */
-    public function showMainMenu()
-    {
-        $data['permissions'] = $this->user->getUserPermissions(Security::getRolId());
-        $this->view->show("mainMenu", $data);
-    }
-
-    /**
-     * Cierra la sesión
-     */    
-    public function closeSession() {
-        Security::closeSession();
-        $this->view->show("loginForm");
-    }
-   
-    
     
 }

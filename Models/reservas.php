@@ -12,8 +12,18 @@
             $date= $_REQUEST['fechaRaw'];
             $idTimeSlots = $_REQUEST['idTimeslots'];
             $remarks = $_REQUEST['remarks'];
-            $result = DB::dataManipulation("INSERT INTO reservations(idResource,idUser,idTimeSlots,date,remarks) VALUES ('$idRecurso', '$idUser', '$idTimeSlots', '$date','$remarks')");
+
+            $result1 = DB::dataQuery("SELECT * FROM reservations WHERE idResource = '$idRecurso' AND idTimeSlots = '$idTimeSlots' AND date='$date'");
+
+            if($result1>0){
+                $result = null;
+            }else{
+
+                $result = DB::dataManipulation("INSERT INTO reservations(idResource,idUser,idTimeSlots,date,remarks) VALUES ('$idRecurso', '$idUser', '$idTimeSlots', '$date','$remarks')");
             
+            }
+
+
 
             return $result;
         }

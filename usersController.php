@@ -69,12 +69,23 @@ if( isset($_REQUEST["id"]) && isset($_REQUEST["username"]) && isset($_REQUEST["p
 
      
     }
+        /**
+         * Este metodo puede ser invocado pasandole parametros o no, normalmente le pasaremos parametros para indicar que una accion 
+         * es correcta o no.
+         * Si un usuario tiene una sesion iniciada e intenta acceder a este metodo sera redireccionado directamente al index.
+         * En definitiva este metodo muestra el formulario de registro
+         */
     public function registro($data = null){
         if(Security::thereIsSession()){
             header("Location: index.php");
         }
         $this->view->show("usuarios/register", $data);
     }
+
+    /**
+     * En caso de que un usuario con una sesion iniciada intente entrar al login sera directamente redireccionado a index.
+     * Este metodo se encarga de mostrar el formulario de inicio de sesion.
+     */
     public function login($data = null){
         if(Security::thereIsSession()){
             header("Location: index.php");
@@ -85,7 +96,12 @@ if( isset($_REQUEST["id"]) && isset($_REQUEST["username"]) && isset($_REQUEST["p
     }
 
 
-
+    /**
+     * chekea los datos introducidos en el formulario de inicio de sesion.
+     * En caso de introduccir datos validos, te redirige al index con la sesion ya creada.
+     * Si introduce datos no validos o caracteres no permitidos llamaremos a la vista que muestra el formulario de login,
+     * pasandole como parametro el error.
+     */
     public function loginUsuario(){
         $result = $this->users->checklogin();
 
@@ -106,57 +122,6 @@ if( isset($_REQUEST["id"]) && isset($_REQUEST["username"]) && isset($_REQUEST["p
             $data['error'] = "El usuario ya existe o ha utilizado carácteres no permitidos";
             $this->registro($data);
         }
-    }
-    /**
-     * Constructor. Crea el objeto vista y los modelos
-     */
-    
-
-    /**
-     * Muestra el formulario de login
-     */
-    public function showLoginForm()
-    {
-        $this->view->show("loginForm");
-    }
-    
-    /**
-     * Procesa el formulario de login y, si es correcto, inicia la sesión con el id del usuario.
-     * Redirige a la vista de selección de rol.
-     */
-    public function processLoginForm()
-    {
-
-        // Validación del formulario
-        if (Security::filter($_REQUEST['email']) == "" || Security::filter($_REQUEST['pass']) == "") {
-            // Algún campo del formulario viene vacío: volvemos a mostrar el login
-            $data['errorMsg'] = "El email y la contraseña son obligatorios";
-            $this->view->show("loginForm", $data);
-        }
-        else {
-            // Hemos pasado la validación del formulario: vamos a procesarlo
-            $email = Security::filter($_REQUEST['email']);
-            $pass = Security::filter($_REQUEST['pass']);
-            $userData = $this->user->checkLogin($email, $pass);
-            if ($userData!=null) {
-                // Login correcto: creamos la sesión y pedimos al usuario que elija su rol
-                Security::createSession($userData->id);
-                
-            }
-            else {
-                $data['errorMsg'] = "Usuario o contraseña incorrectos";
-                $this->view->show("loginForm", $data);
-            }
-        }
-    }
-
-    /**
-     * Muestra el menú de opciones del usuario según la tabla de persmisos
-     */
-    public function showMainMenu()
-    {
-        $data['permissions'] = $this->user->getUserPermissions(Security::getRolId());
-        $this->view->show("mainMenu", $data);
     }
 
     /**

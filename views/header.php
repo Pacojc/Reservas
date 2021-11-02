@@ -14,9 +14,10 @@ echo "<!DOCTYPE html>
 <body>
 <nav  class='navbar navbar-expand-md navbar-dark bg-dark mb-4' role='navigation'>
   <!-- Navbar content -->
-
+  <a  class='navbar-brand' href='index.php?controller=menuController&action=list'>Menu</a>
     <a  class='navbar-brand' href='index.php?controller=ResourcesController&action=list'>Recursos</a>";
-
+    
+    
     if(Security::thereIsSession()){
 
       

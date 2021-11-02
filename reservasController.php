@@ -29,10 +29,11 @@ Class reservasController{
     public function mostrarFormulario(){
         $data['seleccionado'] = $_REQUEST['id'];
         $data['recursos'] = $this->resources->resourceslist();
-        $data['Lunes'] = $this->timeslots->obtenerHorario("Lunes");
         $this->view->show("reservas/crearReservas", $data);
     }
-
+    /**
+     * En este metodo coge el dia que me pasa el usuario y lo convierte en dia de la semana.
+     */
     public function mostrarFormulario2(){
         
         $data['idRecurso'] = $_REQUEST['idRecurso'];
@@ -44,8 +45,6 @@ Class reservasController{
         $dias = array('Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sabado');
         $data['fecha'] = $dias[date('N', strtotime($fecha))];
         $fecha = $data['fecha'];
-
-        //SEGUIR AQUI
 
         $data['timeslots'] = $this->timeslots->obtenerHorario($fecha);
         
@@ -77,8 +76,17 @@ Class reservasController{
             $password = $_REQUEST["password"];
             $realname = $_REQUEST["realname"];
 
-            $this->users->insertarReserva($username,$password,$realname);
-            header("Location: index.php?controller=usersController&action=list");
+            $result = $this->users->insertarReserva($username,$password,$realname);
+
+            if($result>0){
+                header("Location: index.php?controller=reservasController&action=mostrar");
+
+            }else{
+                header("index.php?controller=ResourcesController&action=list");
+            }
+
+
+            
             
             
     }
@@ -103,11 +111,11 @@ Class reservasController{
         $result = $this->reservas->eliminar();
 
         if($result){
-            //redireccionar
-            echo "Se ha eliminado correctamente";
+         
+            header("Location: index.php?controller=reservasController&action=mostrar");
 
         }else{
-            echo "Ha ocurrido un error, ha pringar!";
+            header("Location: index.php?controller=reservasController&action=mostrar");
         }
 
 
